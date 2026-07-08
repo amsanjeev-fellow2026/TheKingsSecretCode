@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The King's Secret Code</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Intro Video Section -->
+    <div id="intro-container" class="intro-container">
+        <video id="intro-video" class="intro-video" autoplay muted playsinline preload="auto">
+            <source src="assets/intro.mp4" type="video/mp4">
+        </video>
+        <!-- Video Mute Button -->
+        <button id="video-mute-button" class="video-mute-button">
+            <span class="mute-icon">🔇</span>
+        </button>
+        <!-- Skip Intro Button -->
+        <button id="skip-intro-button" class="skip-intro-button">
+            <span class="skip-text">⏭ Skip Intro</span>
+        </button>
+    </div>
+
+    <!-- Main Game Container -->
+    <div id="game-container" class="game-container hidden">
+        <!-- Background Layers for Parallax -->
+        <div class="parallax-layer parallax-back">
+            <div class="sky-gradient"></div>
+            <div class="clouds-container">
+                <div class="cloud cloud-1"></div>
+                <div class="cloud cloud-2"></div>
+                <div class="cloud cloud-3"></div>
+                <div class="cloud cloud-4"></div>
+            </div>
+            <div class="sun"></div>
+            <div class="birds-container">
+                <div class="bird bird-1"></div>
+                <div class="bird bird-2"></div>
+                <div class="bird bird-3"></div>
+            </div>
+            <div class="butterflies-container">
+                <div class="butterfly butterfly-1"></div>
+                <div class="butterfly butterfly-2"></div>
+                <div class="butterfly butterfly-3"></div>
+                <div class="butterfly butterfly-4"></div>
+            </div>
+        </div>
+
+        <div class="parallax-layer parallax-mid">
+            <div class="mountains-back"></div>
+            <div class="forest-back">
+                <div class="tree tree-1"></div>
+                <div class="tree tree-2"></div>
+                <div class="tree tree-3"></div>
+                <div class="tree tree-4"></div>
+            </div>
+        </div>
+
+        <div class="parallax-layer parallax-front">
+            <div class="ground"></div>
+            <div class="flowers-container">
+                <div class="flower flower-1"></div>
+                <div class="flower flower-2"></div>
+                <div class="flower flower-3"></div>
+                <div class="flower flower-4"></div>
+                <div class="flower flower-5"></div>
+            </div>
+            <div class="forest-front">
+                <div class="tree tree-5"></div>
+                <div class="tree tree-6"></div>
+            </div>
+        </div>
+
+        <!-- Floating Particles -->
+        <div id="particles-container" class="particles-container"></div>
+        
+        <!-- Falling Leaves -->
+        <div class="leaves-container">
+            <div class="leaf leaf-1"></div>
+            <div class="leaf leaf-2"></div>
+            <div class="leaf leaf-3"></div>
+            <div class="leaf leaf-4"></div>
+            <div class="leaf leaf-5"></div>
+        </div>
+
+        <!-- UI Overlay -->
+        <div class="ui-overlay">
+            <!-- Top Goal Card -->
+            <div class="goal-card">
+                <div class="goal-title">Reach Number</div>
+                <div class="target-number" id="target-number">?</div>
+                <div class="current-position">
+                    <span class="position-label">Current Position:</span>
+                    <span class="position-value" id="current-position">0</span>
+                </div>
+            </div>
+
+            <!-- Mute Button -->
+            <button id="mute-button" class="mute-button" aria-label="Toggle Sound">
+                <span class="mute-icon">🔊</span>
+            </button>
+
+        </div>
+
+        <!-- Game Area -->
+        <div class="game-area">
+            <!-- Scrollable Road -->
+            <div id="road-container" class="road-container">
+                <div class="road">
+                    <!-- Position Markers -->
+                    <div id="position-markers" class="position-markers"></div>
+                    
+                    <!-- Castle -->
+                    <div id="castle" class="castle">
+                        <div class="castle-main">
+                            <div class="castle-tower-left">
+                                <div class="castle-torch"></div>
+                                <div class="tower-top"></div>
+                                <div class="tower-body"></div>
+                            </div>
+                            <div class="castle-center">
+                                <div class="castle-gate">
+                                    <div class="gate-door"></div>
+                                </div>
+                                <div class="castle-windows">
+                                    <div class="window window-1"></div>
+                                    <div class="window window-2"></div>
+                                </div>
+                            </div>
+                            <div class="castle-tower-right">
+                                <div class="castle-torch"></div>
+                                <div class="tower-top"></div>
+                                <div class="tower-body"></div>
+                            </div>
+                            <div class="castle-flag">
+                                <div class="flag-pole"></div>
+                                <div class="flag-cloth"></div>
+                            </div>
+                        </div>
+                        <div class="castle-shadow"></div>
+                    </div>
+
+                    <!-- Dust Effect Container -->
+                    <div id="dust-container" class="dust-container"></div>
+                </div>
+            </div>
+
+            <!-- Explorer (separate layer to avoid clipping) -->
+            <div id="explorer" class="explorer">
+                <div class="explorer-body">
+                    <div class="explorer-hat"></div>
+                    <div class="explorer-head">
+                        <div class="explorer-eyes">
+                            <div class="explorer-eye left"></div>
+                            <div class="explorer-eye right"></div>
+                        </div>
+                        <div class="explorer-smile"></div>
+                    </div>
+                    <div class="explorer-backpack"></div>
+                    <div class="explorer-torso"></div>
+                    <div class="explorer-belt"></div>
+                    <div class="explorer-legs">
+                        <div class="explorer-leg left"></div>
+                        <div class="explorer-leg right"></div>
+                    </div>
+                    <div class="explorer-arm-left"></div>
+                    <div class="explorer-arm-right"></div>
+                </div>
+                <div class="explorer-shadow"></div>
+            </div>
+        </div>
+
+        <!-- Bottom Stone Selection -->
+        <div class="stone-selection">
+            <div class="stones-container">
+                <!-- Stone A (moves 1) -->
+                <button id="stone-a" class="stone stone-a" data-value="1" aria-label="Magical Stone">
+                    <div class="stone-glow"></div>
+                    <div class="stone-body">
+                        <div class="stone-symbol" id="stone-a-symbol"></div>
+                        <div class="stone-value">(+1 Step)</div>
+                    </div>
+                    <div class="stone-uses" id="stone-a-uses">
+                        <span class="use-star">⭐</span>
+                        <span class="use-star">⭐</span>
+                        <span class="use-star">⭐</span>
+                    </div>
+                    <div class="stone-particles"></div>
+                </button>
+
+                <!-- Stone B (moves 5) -->
+                <button id="stone-b" class="stone stone-b" data-value="5" aria-label="Magical Stone">
+                    <div class="stone-glow"></div>
+                    <div class="stone-body">
+                        <div class="stone-symbol" id="stone-b-symbol"></div>
+                        <div class="stone-value">(+5 Steps)</div>
+                    </div>
+                    <div class="stone-uses" id="stone-b-uses">
+                        <span class="use-star">⭐</span>
+                    </div>
+                    <div class="stone-particles"></div>
+                </button>
+
+                <!-- Stone C (moves 10) -->
+                <button id="stone-c" class="stone stone-c" data-value="10" aria-label="Magical Stone">
+                    <div class="stone-glow"></div>
+                    <div class="stone-body">
+                        <div class="stone-symbol" id="stone-c-symbol"></div>
+                        <div class="stone-value">(+10 Steps)</div>
+                    </div>
+                    <div class="stone-uses" id="stone-c-uses">
+                        <span class="use-star">⭐</span>
+                        <span class="use-star">⭐</span>
+                        <span class="use-star">⭐</span>
+                    </div>
+                    <div class="stone-particles"></div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Retry Prompt Overlay -->
+        <div id="retry-overlay" class="retry-overlay hidden">
+            <div class="retry-content">
+                <div class="retry-message">
+                    <h2 class="retry-title">❌ Oops!</h2>
+                    <p class="retry-subtitle">You went beyond the King's target.</p>
+                    <p class="retry-hint">Try a different combination of magical stones.</p>
+                </div>
+                <button id="retry-button" class="retry-button">
+                    <span class="retry-text">🔄 Retry</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Win Celebration Overlay -->
+        <div id="win-overlay" class="win-overlay hidden">
+            <div class="win-content">
+                <div class="king-character">
+                    <div class="king-body">
+                        <div class="king-crown"></div>
+                        <div class="king-head"></div>
+                        <div class="king-robe"></div>
+                        <div class="king-scepter"></div>
+                    </div>
+                </div>
+                <div class="win-message">
+                    <h2 class="win-title">You have uncovered the symbols of the Ancient Kingdom...</h2>
+                </div>
+                <!-- Symbol Reveal Stones -->
+                <div class="symbol-reveal-container">
+                    <div class="reveal-stone reveal-stone-a">
+                        <span class="reveal-symbol">I</span>
+                    </div>
+                    <div class="reveal-stone reveal-stone-b">
+                        <span class="reveal-symbol">V</span>
+                    </div>
+                    <div class="reveal-stone reveal-stone-c">
+                        <span class="reveal-symbol">X</span>
+                    </div>
+                </div>
+                <button id="continue-button" class="continue-button hidden">
+                    <span class="continue-text">▶ Continue Adventure</span>
+                    <div class="continue-glow"></div>
+                </button>
+            </div>
+            <!-- Confetti Container -->
+            <div id="confetti-container" class="confetti-container"></div>
+            <!-- Fireworks Container -->
+            <div id="fireworks-container" class="fireworks-container"></div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
