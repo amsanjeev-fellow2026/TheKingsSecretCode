@@ -2256,6 +2256,30 @@ html, body {
     }
 }
 
+/* ===== FOOTER ===== */
+.site-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 4px 10px;
+    text-align: center;
+    font-size: clamp(0.65rem, 1.4vh, 0.85rem);
+    line-height: 1.2;
+    color: rgba(255, 255, 255, 0.85);
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(6px);
+    z-index: 1100;          /* above game, overlays and intro video */
+    pointer-events: none;   /* never blocks clicks on stones/buttons */
+    user-select: none;
+}
+
+.stone-selection {
+    position: absolute;
+    bottom: clamp(36px, 6vh, 60px);   /* was clamp(20px, 4vh, 40px) */
+    ...
+}
+
 /* ===== UTILITY CLASSES ===== */
 .hidden {
     display: none !important;
